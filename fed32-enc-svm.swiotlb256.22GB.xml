@@ -1,0 +1,110 @@
+<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
+  <name>fed32-enc-svm.swiotlb256.22GB</name>
+  <uuid>2e09dbc6-b1c3-481f-a8bc-51489cd80cfa</uuid>
+  <memory unit='KiB'>22000000</memory>
+  <currentMemory unit='KiB'>22000000</currentMemory>
+  <vcpu placement='static' cpuset='0,4,8,12,16,20,24,28'>8</vcpu>
+  <os>
+    <type arch='ppc64le' machine='pseries-4.2'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+  <cpu mode='custom' match='exact' check='none'>
+    <model fallback='forbid'>POWER9</model>
+  </cpu>
+  <clock offset='utc'/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <devices>
+    <emulator>/usr/local/bin/qemu-system-ppc64</emulator>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' cache='none'/>
+      <source file='/var/lib/libvirt/images/fed32-root-enc.100GB.qcow2'/>
+      <target dev='vda' bus='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
+    </disk>
+    <controller type='usb' index='0' model='qemu-xhci' ports='15'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+    </controller>
+    <controller type='scsi' index='0' model='virtio-scsi'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+    </controller>
+    <controller type='pci' index='0' model='pci-root'>
+      <model name='spapr-pci-host-bridge'/>
+      <target index='0'/>
+    </controller>
+    <controller type='virtio-serial' index='0'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+    </controller>
+    <interface type='network'>
+      <mac address='52:54:00:b4:b8:6f'/>
+      <source network='default'/>
+      <model type='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x0'/>
+    </interface>
+    <serial type='pty'>
+      <target type='spapr-vio-serial' port='0'>
+        <model name='spapr-vty'/>
+      </target>
+      <address type='spapr-vio' reg='0x30000000'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+      <address type='spapr-vio' reg='0x30000000'/>
+    </console>
+    <channel type='unix'>
+      <target type='virtio' name='org.qemu.guest_agent.0'/>
+      <address type='virtio-serial' controller='0' bus='0' port='1'/>
+    </channel>
+    <input type='tablet' bus='usb'>
+      <address type='usb' bus='0' port='1'/>
+    </input>
+    <input type='keyboard' bus='usb'>
+      <address type='usb' bus='0' port='2'/>
+    </input>
+    <tpm model='spapr-tpm-proxy'>
+      <backend type='passthrough'>
+        <device path='/dev/tpmrm0'/>
+      </backend>
+    </tpm>
+    <memballoon model='virtio'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
+    </memballoon>
+    <panic model='pseries'/>
+  </devices>
+  <qemu:commandline>
+    <qemu:arg value='-M'/>
+    <qemu:arg value='pseries,cap-allow-secure-guest=on'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-scsi-pci.disable-legacy=on'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-scsi-pci.disable-modern=off'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-scsi-pci.iommu_platform=on'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-blk-pci.disable-legacy=on'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-blk-pci.disable-modern=off'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-blk-pci.iommu_platform=on'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-net-pci.disable-legacy=on'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-net-pci.disable-modern=off'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-net-pci.iommu_platform=on'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-serial-pci.disable-legacy=on'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-serial-pci.disable-modern=off'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-serial-pci.iommu_platform=on'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-balloon-pci.disable-legacy=on'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-balloon-pci.disable-modern=off'/>
+    <qemu:arg value='-global'/>
+    <qemu:arg value='virtio-balloon-pci.iommu_platform=on'/>
+  </qemu:commandline>
+</domain>
+
