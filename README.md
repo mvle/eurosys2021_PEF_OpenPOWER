@@ -19,7 +19,11 @@ sudo systemctl stop firewalld
 
 ## Block performance experiments:
 - Download and build fio: https://github.com/axboe/fio
+- Copy fio\_examples/\* into git/fio/examples/
 - In target VM:
+  -- fio examples/fio-rand-RW.4.fio
+  -- fio examples/fio-rand-RW.8.fio
+  -- fio examples/fio-rand-RW.16.fio
 
 ## CPU performance experiments:
 - Run req-install.sh to prepare VM for SPEC CPU2017 installation
