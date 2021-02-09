@@ -7,8 +7,8 @@ We provide 2 images: **fed32-svm** and **fed32**. **fed32-svm** is used for all 
 
 ### SVM experiments:
 - Verify system is booted in PEF: 
-    - ls /sys/firmware/ (Check existence of ultravisor directory) 
-    - if not in PEF. Enable PEF (see instructions below).
+    - ls /sys/firmware/ (If ultravisor directory exists, then in PEF mode) 
+    - If not in PEF, enable PEF (see instructions below).
 - sudo virsh start fed32-svm
 - sudo virsh domifaddr fed32-svm (to get IP address)
 - ssh root@<fed32-svm IP>
@@ -29,10 +29,10 @@ We provide 2 images: **fed32-svm** and **fed32**. **fed32-svm** is used for all 
 - Go to <Experiments to run inside the (S)VMs> section and run all the experiments there
 
 ## Enabling/disabling PEF:
-    - ENABLE PEF: nvram -p ibm,skiboot --update-config smf\_mem\_amt=0x1000000000 (configure secure memory to 64GB -- half of memory on system)
-    - DISABLE PEF: nvram -p ibm,skiboot --update-config smf\_mem\_amt=0x0 (configure secure memory to 0GB)
-    - ssh root@<hostname> (log into the BMC)
-    - POWER-CYCLE the machine: obmcutil chassisoff && sleep 10 && systemctl restart mboxd.service && sleep 10 && obmcutil chassison && sleep 10 && obmcutil poweron 
+- ENABLE PEF: nvram -p ibm,skiboot --update-config smf\_mem\_amt=0x1000000000 (configure secure memory to 64GB -- half of memory on system)
+- DISABLE PEF: nvram -p ibm,skiboot --update-config smf\_mem\_amt=0x0 (configure secure memory to 0GB)
+- ssh root@<hostname> (log into the BMC)
+- POWER-CYCLE the machine: obmcutil chassisoff && sleep 10 && systemctl restart mboxd.service && sleep 10 && obmcutil chassison && sleep 10 && obmcutil poweron 
 
 ## Experiments to run inside the (S)VMs
 
