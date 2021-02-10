@@ -54,12 +54,7 @@ sudo systemctl stop firewalld
   -- fio examples/fio-rand-RW.16.fio
 
 ### CPU performance experiments:
-- cd into the root CPU SPEC folder
-- source shrc
-- runcpu --config=<config file name> --reportable intrate
-- runcpu --config=<config file name> --reportable intspeed
-
-NOTE: Need sufficient memory in the VM (e.g., 22GB) for the intspeed benchmark, (631.deepsjeng\_s application) will fail to run correctly. Fails to allocate enough space for its hashtable.
+NOTE: SPEC CPU2017 is not open source. A licensed version is provided for committee evaluators on the designated machines.
 
 Installing SPEC CPU2017
 - Run req-install.sh to prepare VM for SPEC CPU2017 installation
@@ -68,4 +63,11 @@ Installing SPEC CPU2017
 NOTE: Installation of tools need to use default location (src root folder -- just hit enter), changing the default location cause failure
 - Copy speccpu2017.cfg into config folder
 
-NOTE: SPEC CPU2017 is not open source. A licensed version is provided for committee evaluators on the designated machines.
+Running the benchmark:
+- cd into the root CPU SPEC folder
+- source shrc
+- runcpu --config=<config file name> --reportable intrate
+- runcpu --config=<config file name> --reportable intspeed
+
+NOTE: Need sufficient memory in the VM (e.g., 22GB) for the intspeed benchmark, (631.deepsjeng\_s application) will fail to run correctly. Fails to allocate enough space for its hashtable.
+
