@@ -1,6 +1,8 @@
 Instructions for running the experiments described in the paper.
 
-We provide 2 VM images on the provisioned machines: **fed32-svm** and **fed32**. **fed32-svm** is used for all experiments requiring SVM. **fed32** is used for both non-PEF and PEF enabled hardware but non-SVM experiments.
+We provide 2 VM images on the provisioned machines: **fed32-svm** and **fed32**. **fed32-svm** is used for all experiments requiring SVM. **fed32** is used for both non-PEF and PEF enabled hardware but non-SVM experiments. (Provisioned machines are not publicly accessible).
+
+NOTE: To use your own SVM image, see fed32-enc-svm.swiotlb256.22GB.xml for example of KVM VM specification to use.
 
 ## Part I: Run SVM and PEF-no-SVM experiments.
 
@@ -56,15 +58,14 @@ sudo systemctl stop firewalld
 - source shrc
 - runcpu --config=<config file name> --reportable intrate
 - runcpu --config=<config file name> --reportable intspeed
+
 NOTE: Need sufficient memory in the VM (e.g., 22GB) for the intspeed benchmark, (631.deepsjeng\_s application) will fail to run correctly. Fails to allocate enough space for its hashtable.
 
 Installing SPEC CPU2017
 - Run req-install.sh to prepare VM for SPEC CPU2017 installation
 - Install SPEC CPU2017 ver 1.1.0
+
 NOTE: Installation of tools need to use default location (src root folder -- just hit enter), changing the default location cause failure
 - Copy speccpu2017.cfg into config folder
 
 NOTE: SPEC CPU2017 is not open source. A licensed version is provided for committee evaluators on the designated machines.
-
-## OPTIONAL:
-To use your own SVM image, see fed32-enc-svm.swiotlb256.22GB.xml for example of KVM VM specification to use.
