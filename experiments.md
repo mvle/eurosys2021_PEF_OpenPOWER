@@ -1,6 +1,6 @@
 Instructions for running the experiments described in the paper.
 
-We provide 2 images: **fed32-svm** and **fed32**. **fed32-svm** is used for all experiments requiring SVM. **fed32** is used for both non-PEF and PEF enabled hardware but non-SVM experiments.
+We provide 2 VM images on the provisioned machines: **fed32-svm** and **fed32**. **fed32-svm** is used for all experiments requiring SVM. **fed32** is used for both non-PEF and PEF enabled hardware but non-SVM experiments.
 
 ## Part I: Run SVM and PEF-no-SVM experiments.
 
