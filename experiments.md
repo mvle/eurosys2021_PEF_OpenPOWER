@@ -65,6 +65,5 @@ NOTE: Need sufficient memory in the VM (e.g., 22GB) for the intspeed benchmark, 
 - runcpu --config=<config file name> --reportable intspeed
 
 
-## OPTIONAL STEPS:
-NOTE: see fed32-enc-svm.swiotlb256.22GB.xml for example of KVM VM spec
-
+## OPTIONAL:
+To use your own SVM image, see fed32-enc-svm.swiotlb256.22GB.xml for example of KVM VM specification to use.
