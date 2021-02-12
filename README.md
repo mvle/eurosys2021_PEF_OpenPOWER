@@ -38,20 +38,23 @@ NOTE: To use your own SVM image, see fed32-enc-svm.swiotlb256.22GB.xml for examp
 Execute the boot-time.sh script, passing in the target VM name and IP
 
 ### Network performance experiments:
-- Download and build uperf: https://github.com/uperf/uperf
-- In target VM: run the script uperf.sh
-- On separate host: run ./uperf -s
-
-NOTE: firewall should be disabled or punch holes for both the uperf master/slave processes.
-sudo systemctl stop firewalld
+- Download, build, install uperf: https://github.com/uperf/uperf
+- Copy bin/uperf to the target VM
+- Copy entire uperf install directory to a separate host
+- On separate host, copy the uperf.sh script into the root of the uperf installed directory.
+- Disable firewall and enable port forwarding:
+    - On VM: sudo systemctl stop firewalld
+    - On separate host: sudo systemctl stop firewalld
+    - On VM's host: ./net\_forwarding.sh
+- In target VM: run ./uperf -s 
+- On separate host, run the script ./uperf.sh
 
 ### Block performance experiments:
-- Download and build fio: https://github.com/axboe/fio
-- Copy fio\_examples/\* into git/fio/examples/
+- yum install fio
 - In target VM:
-  -- fio examples/fio-rand-RW.4.fio
-  -- fio examples/fio-rand-RW.8.fio
-  -- fio examples/fio-rand-RW.16.fio
+    - fio fio\_examples/fio-rand-RW.4.fio
+    - fio fio\_examples/fio-rand-RW.8.fio
+    - fio fio\_examples/fio-rand-RW.16.fio
 
 ### CPU performance experiments:
 NOTE: SPEC CPU2017 is not open source. A licensed version is provided for committee evaluators on the designated machines.
