@@ -49,12 +49,16 @@ Execute the boot-time.sh script, passing in the target VM name and IP
 - In target VM: run ./uperf -s 
 - On separate host, run the script ./uperf.sh
 
+NOTE: the result value to look for is in *Total* line, e.g., 16.13Mb/s from *Total     62.16MB /  32.33(s) =    16.13Mb/s       22400op/s*
+
 ### Block performance experiments:
 - yum install fio
 - In target VM:
     - fio fio\_examples/fio-rand-RW.4.fio
     - fio fio\_examples/fio-rand-RW.8.fio
     - fio fio\_examples/fio-rand-RW.16.fio
+
+NOTE: the result value to look for is in *Run status group*, e.g., READ: bw=548KiB/s (561kB/s)...and WRITE: bw=364KiB/s (373kB/s)...
 
 ### CPU performance experiments:
 NOTE: SPEC CPU2017 is not open source. A licensed version is provided for committee evaluators on the designated machines.
@@ -74,3 +78,4 @@ Running the benchmark:
 
 NOTE: Need sufficient memory in the VM (e.g., 22GB) for the intspeed benchmark, (631.deepsjeng\_s application) will fail to run correctly. Fails to allocate enough space for its hashtable.
 
+NOTE: The result to look for is the values in *Est. Base Run Time*
