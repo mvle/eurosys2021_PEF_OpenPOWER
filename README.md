@@ -20,7 +20,7 @@ NOTE: To use your own SVM image, see fed32-enc-svm.swiotlb256.22GB.xml for examp
 
 ## Part II: Run non-PEF experiments.
 
-- Use the provided non-PEF machine or disable PEF on the system and power-cycle described in Enabling/Disabling PEF below.
+- *(Skip if using provided machine)* Disable PEF on the system and power-cycle described in Enabling/Disabling PEF below.
 - sudo virsh start fed32
 - sudo virsh domifaddr fed32 (to get IP address)
 - ssh root@<fed32 IP>
@@ -33,26 +33,27 @@ NOTE: To use your own SVM image, see fed32-enc-svm.swiotlb256.22GB.xml for examp
 - POWER-CYCLE the machine: obmcutil chassisoff && sleep 10 && systemctl restart mboxd.service && sleep 10 && obmcutil chassison && sleep 10 && obmcutil poweron 
 
 ## Experiments to run inside the (S)VMs
+Git clone this repo onto the host machine.
 
 ### Boot time measurement:
-Execute the boot-time.sh script, passing in the target VM name and IP
+Execute the provided boot-time.sh script, passing in the target VM name and IP.
 
 ### Network performance experiments:
-- Download, build, install uperf: https://github.com/uperf/uperf
-- Copy bin/uperf to the target VM
+- Download, build, install uperf on host: https://github.com/uperf/uperf
+- *(Skip if using provided VM image)* Copy bin/uperf to the target VM
 - Copy entire uperf install directory to a separate host
 - On separate host, copy the uperf.sh script into the root of the uperf installed directory.
 - Disable firewall and enable port forwarding:
     - On VM: sudo systemctl stop firewalld
     - On separate host: sudo systemctl stop firewalld
-    - On VM's host: ./net\_forwarding.sh
+    - On VM's host, use provided script: ./net\_forwarding.sh <HOSTIP> <HOSTPORT> <VMIP> <VMPORT> <VMSUBNET>
 - In target VM: run ./uperf -s 
-- On separate host, run the script ./uperf.sh
+- On separate host, run the provided script ./uperf.sh
 
 NOTE: the result value to look for is in *Total* line, e.g., 16.13Mb/s from *Total     62.16MB /  32.33(s) =    16.13Mb/s       22400op/s*
 
 ### Block performance experiments:
-- yum install fio
+- (Skip if using provided VM image) yum install fio
 - In target VM:
     - fio fio\_examples/fio-rand-RW.4.fio
     - fio fio\_examples/fio-rand-RW.8.fio
@@ -63,12 +64,13 @@ NOTE: the result value to look for is in *Run status group*, e.g., READ: bw=548K
 ### CPU performance experiments:
 NOTE: SPEC CPU2017 is not open source. A licensed version is provided for committee evaluators on the designated machines.
 
-Installing SPEC CPU2017
+Installing SPEC CPU2017 *(Skip if using provided VM images)*
 - Run req-install.sh to prepare VM for SPEC CPU2017 installation
 - Install SPEC CPU2017 ver 1.1.0
 
 NOTE: Installation of tools need to use default location (src root folder -- just hit enter), changing the default location cause failure
-- Copy speccpu2017.cfg into config folder
+
+- Copy speccpu2017.cfg into config folder *(Skip if using provided VM images)*
 
 Running the benchmark:
 - cd into the root CPU SPEC folder
