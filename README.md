@@ -9,13 +9,13 @@ NOTE: To use your own SVM image, see fed32-enc-svm.swiotlb256.22GB.xml for examp
 ### SVM experiments:
 - sudo virsh start fed32-svm
 - sudo virsh domifaddr fed32-svm (to get IP address)
-- ssh root@<fed32-svm IP>
+- ssh root@\<fed32-svm IP>
 - Go to <Experiments to run inside the (S)VMs> section and run all the experiments there
 
 ### PEF-no-SVM experiments:
 - sudo virsh start fed32
 - sudo virsh domifaddr fed32 (to get IP address)
-- ssh root@<fed32 IP>
+- ssh root@\<fed32 IP>
 - Go to <Experiments to run inside the (S)VMs> section and run all the experiments there
 
 ## Part II: Run non-PEF experiments.
@@ -23,13 +23,13 @@ NOTE: To use your own SVM image, see fed32-enc-svm.swiotlb256.22GB.xml for examp
 - *(Skip if using provided machine)* Disable PEF on the system and power-cycle described in Enabling/Disabling PEF below.
 - sudo virsh start fed32
 - sudo virsh domifaddr fed32 (to get IP address)
-- ssh root@<fed32 IP>
+- ssh root@\<fed32 IP>
 - Go to <Experiments to run inside the (S)VMs> section and run all the experiments there
 
 ## Enabling/disabling PEF:
 - ENABLE PEF: nvram -p ibm,skiboot --update-config smf\_mem\_amt=0x1000000000 (configure secure memory to 64GB -- half of memory on system)
 - DISABLE PEF: nvram -p ibm,skiboot --update-config smf\_mem\_amt=0x0 (configure secure memory to 0GB)
-- ssh root@<hostname> (log into the BMC)
+- ssh root@\<hostname> (log into the BMC)
 - POWER-CYCLE the machine: obmcutil chassisoff && sleep 10 && systemctl restart mboxd.service && sleep 10 && obmcutil chassison && sleep 10 && obmcutil poweron 
 
 ## Experiments to run inside the (S)VMs
@@ -52,8 +52,8 @@ NOTE: Installation of tools need to use default location (src root folder -- jus
 Running the benchmark:
 - cd into the root CPU SPEC folder
 - source shrc
-- runcpu --config=<config file name> --reportable intrate
-- runcpu --config=<config file name> --reportable intspeed
+- runcpu --config=\<config file name> --reportable intrate
+- runcpu --config=\<config file name> --reportable intspeed
 
 NOTE: Need sufficient memory in the VM (e.g., 22GB) for the intspeed benchmark, (631.deepsjeng\_s application) will fail to run correctly. Fails to allocate enough space for its hashtable.
 
