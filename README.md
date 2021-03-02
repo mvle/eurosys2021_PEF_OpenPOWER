@@ -76,7 +76,7 @@ NOTE: the result value to look for is in *Run status group*, e.g., READ: bw=548K
 - Disable firewall and enable port forwarding:
     - On VM: sudo systemctl stop firewalld
     - On separate host: sudo systemctl stop firewalld
-    - On VM's host, use provided script: ./net\_forwarding.sh <HOSTIP> <HOSTPORT> <VMIP> <VMPORT> <VMSUBNET>
+    - On VM's host, use provided script: ./net\_forwarding.sh \<HOSTIP> \<HOSTPORT> \<VMIP> \<VMPORT> \<VMSUBNET>
 - In target VM: run ./uperf -s 
 - On separate host, run the provided script ./uperf.sh
 
