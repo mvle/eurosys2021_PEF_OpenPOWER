@@ -62,9 +62,6 @@ NOTE: The result to look for is the values in *Est. Base Run Time*
 ### Block performance experiments:
 - *(Skip if using provided VM image)* yum install fio
 - In target VM:
-    ~~- fio fio\_examples/fio-rand-RW.4.fio
-    ~~- fio fio\_examples/fio-rand-RW.8.fio
-    ~~- fio fio\_examples/fio-rand-RW.16.fio
     - cd into *fio* directory pulled from this repo
     - ./run\_all.sh
 
