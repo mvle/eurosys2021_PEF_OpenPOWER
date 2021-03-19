@@ -82,6 +82,7 @@ NOTE: the result value to look for is in *Run status group*, e.g., READ: bw=548K
     - On VM: sudo systemctl stop firewalld
     - On VM's host, use provided script: ./net\_forwarding.sh \<HOSTIP> \<PORTS> \<PORTS> \<VMIP> \<VMSUBNET>
       <br> e.g., ./net_forwarding.sh 120.5.253.43 20000 20001 192.168.122.53 192.168.122.0/24
+    - On separate host: sudo systemctl stop firewalld
 - In target VM: \<folder of netperf>/bin/netserver -p 20000 -D -f
 - On separate host, copy the provided *netperf/run.sh* into *~/rpmbuild/BUILDROOT/netperf-2.7.0-benchmark.11.10.ppc64le/usr/*
     - run the provided script ./run.sh \<host name of VM's host>
