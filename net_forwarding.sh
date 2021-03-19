@@ -1,10 +1,11 @@
 #!/bin/bash
 
 HOSTIP=$1
-HOSTPORT=$2 #20000
-VMIP=$3
-VMPORT=$4 #20000
-VMSUBNET=$5 #192.168.122.0/24
+PORTS=$2 
+PORTE=$3 
+VMIP=$4
+VMSUBNET=$5
 
-sudo iptables -t nat -I PREROUTING -p tcp -d $HOSTIP --dport $HOSTPORT -j DNAT --to-destination $VMIP:$VMPORT
+sudo iptables -t nat -I PREROUTING -p tcp -d $HOSTIP --dport $PORTS:$PORTE -j DNAT --to-destination $VMIP
+sudo iptables -t nat -I PREROUTING -p udp -d $HOSTIP --dport $PORTS:$PORTE -j DNAT --to-destination $VMIP
 sudo iptables -I FORWARD -m state -d $VMSUBNET --state NEW,RELATED,ESTABLISHED -j ACCEPT

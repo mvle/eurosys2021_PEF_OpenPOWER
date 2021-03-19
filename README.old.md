@@ -62,41 +62,23 @@ NOTE: The result to look for is the values in *Est. Base Run Time*
 ### Block performance experiments:
 - *(Skip if using provided VM image)* yum install fio
 - In target VM:
-    ~~- fio fio\_examples/fio-rand-RW.4.fio
-    ~~- fio fio\_examples/fio-rand-RW.8.fio
-    ~~- fio fio\_examples/fio-rand-RW.16.fio
-    - cd into *fio* directory pulled from this repo
-    - ./run\_all.sh
+    - fio fio\_examples/fio-rand-RW.4.fio
+    - fio fio\_examples/fio-rand-RW.8.fio
+    - fio fio\_examples/fio-rand-RW.16.fio
 
 NOTE: the result value to look for is in *Run status group*, e.g., READ: bw=548KiB/s (561kB/s)...and WRITE: bw=364KiB/s (373kB/s)...
 
 ### Network performance experiments:
-- Download, build, install netperf for POWER from the provided SRPM
-    - rpm -ivh netperf/netperf-2.7.0-benchmark.11.10.src.rpm (this will install source package into ~/rpmbuild)
-    - cd ~/rpmbuild/SPECS
-    - edit netperf.spec (comment out lines 34 and 35)
-    - rpmbuild -bi
-    - binary will be installed in *~/rpmbuild/BUILDROOT/netperf-2.7.0-benchmark.11.10.ppc64le/usr/*
-- Copy *~/rpmbuild/BUILDROOT/netperf-2.7.0-benchmark.11.10.ppc64le/* to the target VM
+- Download, build, install uperf on host: https://github.com/uperf/uperf
+- *(Skip if using provided VM image)* Copy bin/uperf to the target VM
+- Copy entire uperf install directory to a separate host
+- On separate host, copy the uperf.sh script into the root of the uperf installed directory.
 - Disable firewall and enable port forwarding:
     - On VM: sudo systemctl stop firewalld
-    - On VM's host, use provided script: ./net\_forwarding.sh \<HOSTIP> \<PORTS> \<PORTS> \<VMIP> \<VMSUBNET>
-      <br> e.g., ./net_forwarding.sh 120.5.253.43 20000 20001 192.168.122.53 192.168.122.0/24
-- In target VM: \<folder of netperf>/bin/netserver -p 20000 -D -f
-- On separate host, copy the provided *netperf/run.sh* into *~/rpmbuild/BUILDROOT/netperf-2.7.0-benchmark.11.10.ppc64le/usr/*
-    - run the provided script ./run.sh \<host name of VM's host>
+    - On separate host: sudo systemctl stop firewalld
+    - On VM's host, use provided script: ./net\_forwarding.sh \<HOSTIP> \<HOSTPORT> \<VMIP> \<VMPORT> \<VMSUBNET>
+      <br> e.g., ./net_forwarding.sh 120.5.253.43 20000 192.168.122.53 20000 192.168.122.0/24
+- In target VM: run ./uperf -s 
+- On separate host, run the provided script ./uperf.sh
 
-NOTE: the result collected is in the THROUGHPUT column
-
-
-### Apache Benchmark
-- On VM:
-    - install *httpd*: yum install httpd
-    - service httpd start
-    - run provided script to generate data: ./ab/gen\_data.sh
-    - Disable firewalld: service firewalld stop
-- On VM's host:
-    - Enable port forwarding to the target VM: ./net\_forwarding.sh 120.5.253.43 80 80 192.168.122.53 192.168.122.0/24
-- On separate host
-    - install *ab*: sudo yum install httpd
-    - ./ab/run.sh \<host of target VM>
+NOTE: the result value to look for is in *Total* line, e.g., 16.13Mb/s from *Total     62.16MB /  32.33(s) =    16.13Mb/s       22400op/s*
