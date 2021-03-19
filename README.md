@@ -77,7 +77,7 @@ NOTE: the result value to look for is in *Run status group*, e.g., READ: bw=548K
 - Copy *~/rpmbuild/BUILDROOT/netperf-2.7.0-benchmark.11.10.ppc64le/* to the target VM
 - Disable firewall and enable port forwarding:
     - On VM: sudo systemctl stop firewalld
-    - On VM's host, use provided script: ./net\_forwarding.sh \<HOSTIP> \<PORTS> \<PORTS> \<VMIP> \<VMSUBNET>
+    - On VM's host, enable port forwarding (ports 20000 and 20001), use provided script: ./net\_forwarding.sh \<HOSTIP> \<PORTS> \<PORTS> \<VMIP> \<VMSUBNET>
       <br> e.g., ./net_forwarding.sh 120.5.253.43 20000 20001 192.168.122.53 192.168.122.0/24
     - On separate host: sudo systemctl stop firewalld
 - In target VM: \<folder of netperf>/bin/netserver -p 20000 -D -f
@@ -94,7 +94,8 @@ NOTE: the result collected is in the THROUGHPUT column
     - run provided script to generate data: ./ab/gen\_data.sh
     - Disable firewalld: service firewalld stop
 - On VM's host:
-    - Enable port forwarding to the target VM: ./net\_forwarding.sh 120.5.253.43 80 80 192.168.122.53 192.168.122.0/24
+    - Enable port forwarding to the target VM for port 80: ./net\_forwarding.sh \<HOSTIP> \<PORTS> \<PORTS> \<VMIP> \<VMSUBNET>
+      <br> e.g., ./net_forwarding.sh 120.5.253.43 80 80 192.168.122.53 192.168.122.0/24
 - On separate host
     - install *ab*: sudo yum install httpd
     - ./ab/run.sh \<host of target VM>
