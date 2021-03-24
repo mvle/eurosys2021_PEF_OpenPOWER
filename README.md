@@ -36,7 +36,7 @@ NOTE: To use your own SVM image, see fed32-enc-svm.swiotlb256.22GB.xml for examp
 Git clone this repo onto the host machine.
 
 ### Boot time measurement:
-Execute the provided boot-time.sh script, passing in the target VM name and IP.
+On the host, execute the provided boot-time.sh script, passing in the target VM name and IP.
 
 ### CPU performance experiments:
 NOTE: SPEC CPU2017 is not open source. A licensed version is provided for committee evaluators on the designated machines.
@@ -65,7 +65,7 @@ NOTE: The result to look for is the values in *Est. Base Run Time*
     - cd into *fio* directory pulled from this repo
     - ./run\_all.sh
 
-NOTE: the result value to look for is in *Run status group*, e.g., READ: bw=548KiB/s (561kB/s)...and WRITE: bw=364KiB/s (373kB/s)...
+NOTE: Running all block experiments can take a couple of hours to complete. The result value to look for is in *Run status group*, e.g., READ: bw=548KiB/s (561kB/s)...and WRITE: bw=364KiB/s (373kB/s)...
 
 ### Network performance experiments:
 - Download, build, install netperf for POWER from the provided SRPM
